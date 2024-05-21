@@ -4,7 +4,9 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import NotFound from './pages/NotFound'
 import Home from './pages/Home'
+import Survey from './pages/Survey'
 import ProtectedRoute from './components/ProtectedRoute'
+import Evaluation from './pages/Evaluation'
 
 function Logout() {
   localStorage.clear()
@@ -29,7 +31,10 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path='/survey/:surveyId' element={<ProtectedRoute><Survey /></ProtectedRoute>} />
+        <Route path='/evaluation' element={<ProtectedRoute><Evaluation /></ProtectedRoute>} />
         <Route path='/login' element={<Login />} />
+        <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<RegisterAndLogout />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
