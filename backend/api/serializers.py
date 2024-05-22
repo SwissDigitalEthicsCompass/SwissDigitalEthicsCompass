@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.utils import timezone
 from rest_framework import serializers
 from .models import *
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -38,7 +39,12 @@ class SurveySerializer(serializers.ModelSerializer):
 class UserResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserResponse
-        fields = ['id', 'question', 'user', 'choice']
+        fields = ['id', 'user', 'survey', 'total_points', 'created_at']
+        read_only_fields = ('created_at',)  # Prevents the API from modifying this field directly
+
+    def create(self, validated_data):
+        validated_data['created_at'] = timezone.now()  # Set current time during creation
+        return UserResponse.objects.create(**validated_data)
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

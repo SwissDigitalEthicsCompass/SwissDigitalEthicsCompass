@@ -32,7 +32,7 @@ function App() {
           }
         />
         <Route path='/survey/:surveyId' element={<ProtectedRoute><Survey /></ProtectedRoute>} />
-        <Route path='/evaluation' element={<ProtectedRoute><Evaluation /></ProtectedRoute>} />
+        <Route path='/evaluation/:evaluationId' element={<ProtectedRoute><Evaluation /></ProtectedRoute>} />
         <Route path='/login' element={<Login />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<RegisterAndLogout />} />

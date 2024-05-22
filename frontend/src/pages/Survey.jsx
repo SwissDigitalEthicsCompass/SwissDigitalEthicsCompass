@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api';
 import Navbar from '../components/Navbar';
+import { jwtDecode } from 'jwt-decode';
+import { ACCESS_TOKEN } from '../constants';
 
 function Survey() {
     const { surveyId } = useParams();
@@ -31,9 +33,32 @@ function Survey() {
         setAnswers(prev => ({ ...prev, [questionId]: choiceId }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/evaluation'); 
+    
+        // Decode the token to get user data
+        const token = localStorage.getItem(ACCESS_TOKEN); 
+        const decoded = jwtDecode(token);
+        const userId = decoded.user_id; 
+    
+        const totalPoints = surveyDetails.reduce((acc, question) => {
+            const answer = answers[question.id];
+            const choice = question.choices.find(c => c.id === answer);
+            return acc + (choice ? choice.score : 0);
+        }, 0);
+    
+        const userResponse = {
+            user: userId,
+            survey: surveyId,
+            total_points: totalPoints,
+        };
+    
+        try {
+            const response = await api.post('/api/user-responses/', userResponse);
+            navigate(`/evaluation/${response.data.id}`);
+        } catch (error) {
+            console.error('Failed to submit survey response:', error);
+        }
     };
 
     if (surveyDetails.length === 0) {

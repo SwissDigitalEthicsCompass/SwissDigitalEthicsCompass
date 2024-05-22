@@ -12,7 +12,6 @@ function Navbar() {
             try {
                 const decoded = jwtDecode(token);
                 setUsername(decoded.username);  
-                console.log(decoded)
             } catch (error) {
                 console.error("Failed to decode JWT:", error);
                 setUsername(''); 
