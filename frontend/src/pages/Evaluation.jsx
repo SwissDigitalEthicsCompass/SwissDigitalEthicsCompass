@@ -4,6 +4,13 @@ import { useParams } from 'react-router-dom';
 import RadarChart from '../components/RadarChart';
 import RecommendationList from '../components/RecommendationList';
 import AIChat from '../components/AIChat';
+import GradientArea from '../components/GradientArea';
+import styled from 'styled-components';
+
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
 
 function Evaluation() {
     const { evaluationId } = useParams(); // Extract evaluationId from the URL
@@ -14,9 +21,10 @@ function Evaluation() {
             <div className="container mt-4">
                 <div className="row">
                     <div className="col-md-6 mb-3">
-                        <div>
+                        <FlexContainer>
+                            <GradientArea />
                             <RadarChart />
-                        </div>
+                        </FlexContainer>
                     </div>
                     <div className="col-md-6">
                         <div className="mb-3">
