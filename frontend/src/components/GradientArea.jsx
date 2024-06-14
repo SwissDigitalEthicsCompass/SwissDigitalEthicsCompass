@@ -6,12 +6,12 @@ const GradientWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 500px;
-  width: 50px;
-  background: linear-gradient(to bottom, #00ff00, #ffffff); /* Reverse gradient colors */
+  justify-content: center;
+  height: 400px;
+  width: 40px;
+  background: linear-gradient(to top, #ffffff, #00ff00); /* Correct gradient colors */
   position: relative;
-  margin-right: 20px; /* Add margin if needed to space it from other components */
+  margin-left: 20px; /* Add margin if needed to space it from other components */
 `;
 
 const Label = styled.div`
@@ -26,15 +26,15 @@ const Label = styled.div`
 
 const Pointer = styled.div`
   position: absolute;
-  right: -20px; /* Adjust as needed */
+  left: -20px; /* Adjust as needed */
   width: 0;
   height: 0;
-  border-left: 10px solid #000; /* Color of the pointer */
+  border-right: 10px solid #000; /* Color of the pointer */
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
 `;
 
-const GradientArea = () => {
+const GradientArea = ({ averageScore }) => {
   const labels = ['Very High', 'High', 'Medium', 'Low', 'Very Low']; // Reversed order
   const [hoverIndex, setHoverIndex] = useState(null);
 
@@ -51,7 +51,9 @@ const GradientArea = () => {
       {labels.map((label, index) => (
         <React.Fragment key={index}>
           <Label
-            style={{ top: `${index * 25}%` }}
+            style={{
+              top: label === 'Very Low' ? `${index * 25 - 2}%` : `${index * 25}%`,
+            }} /* Adjust "Very Low" label slightly upwards */
             alwaysVisible={label === 'Very Low' || label === 'Very High'}
             isHovered={hoverIndex === index}
             onMouseEnter={() => handleMouseEnter(index)}
@@ -64,6 +66,7 @@ const GradientArea = () => {
           )}
         </React.Fragment>
       ))}
+      <Pointer style={{ top: `${(1 - averageScore) * 100}%`, transform: `translateY(-50%)` }} />
     </GradientWrapper>
   );
 };

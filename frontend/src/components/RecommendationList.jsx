@@ -29,7 +29,7 @@ const RecommendationList = () => {
 
   return (
     <div style={{ backgroundColor: '#f7f7f7', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-      <h3>Recommendations for Enhancing Digital Ethics</h3>
+      <h5>Recommendations for Enhancing Digital Ethics</h5>
       <ul>
         {selectedRecommendations.map((recommendation, index) => (
           <li key={index} style={{ marginBottom: '10px' }}>

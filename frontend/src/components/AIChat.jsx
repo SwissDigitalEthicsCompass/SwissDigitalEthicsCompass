@@ -1,4 +1,82 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+import { ResizableBox } from 'react-resizable';
+import 'react-resizable/css/styles.css';
+
+const ChatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+`;
+
+const ChatBox = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+`;
+
+const Message = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: ${(props) => (props.isUser ? 'flex-end' : 'flex-start')};
+  margin: 5px 0;
+`;
+
+const MessageLabel = styled.div`
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 2px;
+`;
+
+const MessageBubble = styled.div`
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: ${(props) => (props.isUser ? '#d1ecf1' : '#f8d7da')};
+  border-radius: 12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 80%;
+`;
+
+const Form = styled.form`
+  display: flex;
+  width: 100%;
+`;
+
+const TextArea = styled.textarea`
+  flex-grow: 1;
+  margin-right: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: vertical;
+  min-height: 50px;
+  max-height: 150px;
+  overflow: auto;
+`;
+
+const SubmitButton = styled.button`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
 const ChatComponent = () => {
   const [messages, setMessages] = useState([]);
@@ -10,49 +88,49 @@ const ChatComponent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!input.trim()) return; // Prevents sending empty messages
+    if (!input.trim()) return;
 
     const newMessage = {
       id: messages.length + 1,
-      text: input,
-      sender: 'user'
+      text: `You: ` + input,
+      sender: 'user',
     };
 
-    // Simulating an AI response
     const aiResponse = {
       id: messages.length + 2,
-      text: `AI Response to: "${input}"`,
-      sender: 'ai'
+      text: `GenAI: "${input}"`,
+      sender: 'ai',
     };
 
-    // Update conversation
     setMessages([...messages, newMessage, aiResponse]);
-    setInput(''); // Clear input after sending
+    setInput('');
   };
 
   return (
-    <><div style={{ textAlign: "center" }}>
-          <h3>Ask the AI</h3>
-      </div><div className="chat-container" style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
-              <div style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '10px', padding: '10px', border: '1px solid #ccc', borderRadius: '8px' }}>
-                  {messages.map(message => (
-                      <div key={message.id} style={{ textAlign: message.sender === 'user' ? 'right' : 'left', margin: '5px' }}>
-                          <div style={{ display: 'inline-block', padding: '8px', backgroundColor: message.sender === 'user' ? '#d1ecf1' : '#f8d7da', borderRadius: '12px', whiteSpace: 'pre-wrap', wordWrap: 'break-word', maxWidth: '80%' }}>
-                              {message.text}
-                          </div>
-                      </div>
-                  ))}
-              </div>
-              <form onSubmit={handleSubmit} style={{ display: 'flex' }}>
-                  <textarea
-                      value={input}
-                      onChange={handleInputChange}
-                      style={{ flexGrow: 1, marginRight: '5px', padding: '10px', border: '1px solid #ccc', borderRadius: '8px', resize: 'none', minHeight: '50px', overflow: 'auto' }} />
-                  <button type="submit" style={{ padding: '10px 20px', border: 'none', borderRadius: '8px', backgroundColor: '#007bff', color: 'white' }}>
-                      Send
-                  </button>
-              </form>
-          </div></>
+    <ChatContainer>
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <h4>Ask the AI</h4>
+      </div>
+      <ResizableBox width={300} height={200} minConstraints={[200, 100]} maxConstraints={[600, 400]}>
+        <ChatBox>
+          {messages.map((message) => (
+            <Message key={message.id} isUser={message.sender === 'user'}>
+              <MessageBubble isUser={message.sender === 'user'}>
+                {message.text}
+              </MessageBubble>
+            </Message>
+          ))}
+        </ChatBox>
+      </ResizableBox>
+      <Form onSubmit={handleSubmit}>
+        <TextArea
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Type your message..."
+        />
+        <SubmitButton type="submit">Send</SubmitButton>
+      </Form>
+    </ChatContainer>
   );
 };
 

@@ -1,6 +1,8 @@
+// src/components/RadarChart.jsx
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import 'chart.js/auto';
+import GradientArea from './GradientArea';
 
 const RadarChart = () => {
   // Labels for the radar chart
@@ -22,12 +24,15 @@ const RadarChart = () => {
   // Random data generation
   const dataPoints = labels.map(() => Math.random());
 
+  // Calculate overall average score
+  const averageScore = dataPoints.reduce((a, b) => a + b, 0) / dataPoints.length;
+
   // Chart data structure
   const chartData = {
     labels: labels,
     datasets: [
       {
-        label: 'Survey Categories',
+        label: 'E-voting',
         data: dataPoints,
         fill: true,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -63,9 +68,12 @@ const RadarChart = () => {
   };
 
   return (
-    <div>
-      <h3 style={{marginBottom: "50px"}}>Assessment of digital ethics concerns</h3>
-      <Radar data={chartData} options={options} />
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div>
+        <h4 style={{ marginBottom: "50px" }}>Assessment of Digital Ethics Concerns</h4>
+        <Radar data={chartData} options={options} />
+      </div>
+      <GradientArea averageScore={averageScore} />
     </div>
   );
 };
