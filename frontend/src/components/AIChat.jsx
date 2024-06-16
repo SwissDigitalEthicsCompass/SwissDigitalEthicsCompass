@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../styles/AIChat.css"
 import styled from 'styled-components';
 import { ResizableBox } from 'react-resizable';
 import 'react-resizable/css/styles.css';
@@ -107,30 +108,31 @@ const ChatComponent = () => {
   };
 
   return (
-    <ChatContainer>
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <h4>Ask the AI</h4>
-      </div>
-      <ResizableBox width={300} height={200} minConstraints={[200, 100]} maxConstraints={[600, 400]}>
-        <ChatBox>
-          {messages.map((message) => (
-            <Message key={message.id} isUser={message.sender === 'user'}>
-              <MessageBubble isUser={message.sender === 'user'}>
+    <div style={{ textAlign: "center" }}>
+      <h3>Ask the AI</h3>
+      <div className="chat-container">
+        <div className="messages-container">
+          {messages.map(message => (
+            <div key={message.id} className="message">
+              <div className={`message-content ${message.sender === 'user' ? 'user-message' : 'ai-message'}`}>
                 {message.text}
-              </MessageBubble>
-            </Message>
+              </div>
+            </div>
           ))}
-        </ChatBox>
-      </ResizableBox>
-      <Form onSubmit={handleSubmit}>
-        <TextArea
-          value={input}
-          onChange={handleInputChange}
-          placeholder="Type your message..."
-        />
-        <SubmitButton type="submit">Send</SubmitButton>
-      </Form>
-    </ChatContainer>
+        </div>
+        <form onSubmit={handleSubmit} style={{ display: 'flex' }}>
+          <textarea
+            value={input}
+            onChange={handleInputChange}
+            placeholder='Do you have a question? Type here!'
+            className="chat-input"
+          />
+          <button type="submit" className="send-button">
+            Send
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
