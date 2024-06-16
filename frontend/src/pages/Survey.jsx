@@ -54,7 +54,7 @@ function Survey() {
         };
     
         try {
-            const response = await api.post('/api/user-responses/', userResponse);
+            const response = await api.post('/api/user-responses/create/', userResponse);
             navigate(`/evaluation/${response.data.id}`);
         } catch (error) {
             console.error('Failed to submit survey response:', error);

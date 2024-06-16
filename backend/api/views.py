@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions, status
 from .serializers import *
@@ -49,3 +49,24 @@ class UserResponseCreateView(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+class UserResponseViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = UserResponseSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return UserResponse.objects.filter(user=self.request.user)
+
+
+class UserResponseDetailView(generics.RetrieveDestroyAPIView):
+    queryset = UserResponse.objects.all()
+    serializer_class = UserResponseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Delete a user response instance.
+        """
+        user_response = self.get_object()
+        user_response.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
