@@ -61,6 +61,10 @@ function Survey() {
         }
     };
 
+    const handleGoBack = () => {
+        navigate(-1); // Navigates back to the last entry in the history stack
+    };
+
     if (surveyDetails.length === 0) {
         return <div><Navbar /><p>Loading...</p></div>;
     }
@@ -69,6 +73,7 @@ function Survey() {
         <>
             <Navbar />
             <div style={{ padding: '20px' }}>
+                <button onClick={handleGoBack} className="btn btn-secondary" style={{ marginBottom: '10px' }}>Go Back</button>
                 <form onSubmit={handleSubmit}>
                     {surveyDetails.map(question => (
                         <div key={question.id}>
