@@ -28,22 +28,25 @@ const RadarChart = () => {
   }, []);  // Empty dependency array ensures this effect runs only once
 
   const riskCategories = dataPoints.map(value => {
-    if (value <= 0.2) return 'Low Risk';
-    if (value <= 0.5) return 'Medium Risk';
-    if (value <= 0.7) return 'High Risk';
+    if (value <= 0.2) return 'Very Low Risk';
+    if (value <= 0.4) return 'Low Risk';
+    if (value <= 0.6) return 'Medium Risk';
+    if (value <= 0.8) return 'High Risk';
     return 'Very High Risk';
   });
 
   const pointBackgroundColors = dataPoints.map(value => {
     if (value <= 0.2) return 'green';
-    if (value <= 0.5) return 'yellow';
-    if (value <= 0.7) return 'orange';
+    if (value <= 0.4) return 'lightblue';
+    if (value <= 0.6) return 'yellow';
+    if (value <= 0.8) return 'orange';
     return 'red';
   });
 
   const [riskDescription, setRiskDescription] = useState('');
 
   const riskDescriptions = {
+    "Very Low Risk": "Very Low risk indicates very minimal ethical concerns and impacts. Suitable for most contexts without significant adjustments.",
     "Low Risk": "Low risk indicates minimal ethical concerns and impacts. Suitable for most contexts without significant adjustments.",
     "Medium Risk": "Medium risk suggests moderate ethical considerations are needed. May require periodic reviews and oversight.",
     "High Risk": "High risk indicates significant ethical concerns. Requires active management and mitigation strategies to address.",
@@ -62,7 +65,7 @@ const RadarChart = () => {
     labels: labels,
     datasets: [
       {
-        label: 'Survey Categories',
+        label: 'E-voting',
         data: dataPoints,
         fill: true,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -108,9 +111,10 @@ const RadarChart = () => {
     <div>
       <h3 style={{marginBottom: "50px"}}>Assessment of digital ethics concerns</h3>
       <Radar data={chartData} options={options} />
-      <div className="gradient-bar" style={{ height: "20px", width: "100%", backgroundImage: "linear-gradient(to right, green 25%, yellow 25% 50%, orange 50% 75%, red 75%)" }}
+      <div className="gradient-bar" style={{ height: "20px", width: "100%", backgroundImage: "linear-gradient(to right, green 20%, lightblue 20% 40%, yellow 40% 60%, orange 60% 80%, red 80%)" }}
            onMouseLeave={handleMouseLeave}>
         <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+          <span onMouseEnter={() => handleMouseEnter('Very Low Risk')} style={{ flex: "1", textAlign: "center" }}>Very Low Risk</span>
           <span onMouseEnter={() => handleMouseEnter('Low Risk')} style={{ flex: "1", textAlign: "center" }}>Low Risk</span>
           <span onMouseEnter={() => handleMouseEnter('Medium Risk')} style={{ flex: "1", textAlign: "center" }}>Medium Risk</span>
           <span onMouseEnter={() => handleMouseEnter('High Risk')} style={{ flex: "1", textAlign: "center" }}>High Risk</span>
