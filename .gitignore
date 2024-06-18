@@ -9,6 +9,8 @@ lerna-debug.log*
 
 backend/db.sqlite3
 
+.env
+
 venv/
 
 node_modules
