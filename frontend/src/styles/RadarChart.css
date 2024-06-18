@@ -1,6 +1,6 @@
 .gradient-bar {
     height: 20px;
     width: 100%;
-    background-image: linear-gradient(to right, green 20%,blue 20% 40%, yellow 40% 60%, orange 60% 80%, red 80%);
+    background-image: linear-gradient(to right, green 20%,lightblue 20% 40%, yellow 40% 60%, orange 60% 80%, red 80%);
   }
   

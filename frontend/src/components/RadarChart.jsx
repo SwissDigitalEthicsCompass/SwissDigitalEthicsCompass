@@ -109,7 +109,7 @@ const RadarChart = () => {
 
   return (
     <div>
-      <h3 style={{marginBottom: "50px"}}>Assessment of digital ethics concerns</h3>
+      <h4 style={{marginBottom: "50px"}}>Assessment of digital ethics concerns</h4>
       <Radar data={chartData} options={options} />
       <div className="gradient-bar" style={{ height: "20px", width: "100%", backgroundImage: "linear-gradient(to right, green 20%, lightblue 20% 40%, yellow 40% 60%, orange 60% 80%, red 80%)" }}
            onMouseLeave={handleMouseLeave}>
