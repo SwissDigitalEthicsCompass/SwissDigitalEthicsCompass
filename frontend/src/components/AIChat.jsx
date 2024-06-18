@@ -15,13 +15,13 @@ const ChatComponent = () => {
 
     const newMessage = {
       id: messages.length + 1,
-      text: input,
+      text: 'You: ' + input,
       sender: 'user'
     };
 
     const aiResponse = {
       id: messages.length + 2,
-      text: `AI Response to: "${input}"`,
+      text: `AI: "${input}"`,
       sender: 'ai'
     };
 
@@ -31,17 +31,18 @@ const ChatComponent = () => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h3>Ask the AI</h3>
+      <h4>Ask the AI</h4>
       <div className="chat-container">
         <div className="messages-container">
           {messages.map(message => (
-            <div key={message.id} className="message">
-              <div className={`message-content ${message.sender === 'user' ? 'user-message' : 'ai-message'}`}>
+            <div key={message.id} className={`message ${message.sender === 'user' ? 'user-message' : 'ai-message'}`}>
+              <div className="message-content">
                 {message.text}
               </div>
             </div>
           ))}
         </div>
+
         <form onSubmit={handleSubmit} style={{ display: 'flex' }}>
           <textarea
             value={input}
