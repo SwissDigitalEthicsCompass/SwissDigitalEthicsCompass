@@ -10,6 +10,8 @@ lerna-debug.log*
 backend/db.sqlite3
 
 frontend/.env
+backend/.env
+.env
 
 venv/
 
