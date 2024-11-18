@@ -112,23 +112,31 @@ const RadarChart = () => {
   };
 
   return (
-    <div>
-      <h4 style={{marginBottom: "50px"}}>Assessment of digital ethics concerns</h4>
-      <Radar data={chartData} options={options} />
-      <div className="gradient-bar" style={{ height: "20px", width: "100%", backgroundImage: "linear-gradient(to right, green 20%, lightblue 20% 40%, yellow 40% 60%, orange 60% 80%, red 80%)" }}
-           onMouseLeave={handleMouseLeave}>
-        <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-          <span onMouseEnter={() => handleMouseEnter('Very Low Risk')} style={{ flex: "1", textAlign: "center" }}>Very Low Risk</span>
-          <span onMouseEnter={() => handleMouseEnter('Low Risk')} style={{ flex: "1", textAlign: "center" }}>Low Risk</span>
-          <span onMouseEnter={() => handleMouseEnter('Medium Risk')} style={{ flex: "1", textAlign: "center" }}>Medium Risk</span>
-          <span onMouseEnter={() => handleMouseEnter('High Risk')} style={{ flex: "1", textAlign: "center" }}>High Risk</span>
-          <span onMouseEnter={() => handleMouseEnter('Very High Risk')} style={{ flex: "1", textAlign: "center" }}>Very High Risk</span>
+  <div>
+
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div>
+          <h4 style={{ marginBottom: "50px" }}>Assessment of digital ethics concerns</h4>
+          <Radar data={chartData} options={options} />
         </div>
-        
-      </div>
-      {riskDescription && <div style={{ marginTop: "5px", fontWeight: "bold" }}>{riskDescription}</div>}
-      <GradientArea averageScore={averageScore} />
+
+        <GradientArea averageScore={averageScore} />
     </div>
+
+    <div className="gradient-bar" style={{ height: "20px", width: "100%", backgroundImage: "linear-gradient(to right, green 20%, lightblue 20% 40%, yellow 40% 60%, orange 60% 80%, red 80%)" }}
+      onMouseLeave={handleMouseLeave}>
+      <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+        <span onMouseEnter={() => handleMouseEnter('Very Low Risk')} style={{ flex: "1", textAlign: "center" }}>Very Low Risk</span>
+        <span onMouseEnter={() => handleMouseEnter('Low Risk')} style={{ flex: "1", textAlign: "center" }}>Low Risk</span>
+        <span onMouseEnter={() => handleMouseEnter('Medium Risk')} style={{ flex: "1", textAlign: "center" }}>Medium Risk</span>
+        <span onMouseEnter={() => handleMouseEnter('High Risk')} style={{ flex: "1", textAlign: "center" }}>High Risk</span>
+        <span onMouseEnter={() => handleMouseEnter('Very High Risk')} style={{ flex: "1", textAlign: "center" }}>Very High Risk</span>
+      </div>
+        {riskDescription && <div style={{ marginTop: "5px", fontWeight: "bold" }}>{riskDescription}
+            </div>}
+    </div>
+
+  </div>
   );
 };
 
