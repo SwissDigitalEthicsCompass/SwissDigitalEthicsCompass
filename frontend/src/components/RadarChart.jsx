@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Radar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import "../styles/RadarChart.css";
+import GradientArea from './GradientArea';
 
 const RadarChart = () => {
   const labels = [
@@ -60,6 +61,9 @@ const RadarChart = () => {
   const handleMouseLeave = () => {
     setRiskDescription('');
   };
+
+  // Calculate overall average score
+  const averageScore = dataPoints.reduce((a, b) => a + b, 0) / dataPoints.length;
 
   const chartData = {
     labels: labels,
@@ -120,8 +124,10 @@ const RadarChart = () => {
           <span onMouseEnter={() => handleMouseEnter('High Risk')} style={{ flex: "1", textAlign: "center" }}>High Risk</span>
           <span onMouseEnter={() => handleMouseEnter('Very High Risk')} style={{ flex: "1", textAlign: "center" }}>Very High Risk</span>
         </div>
+        
       </div>
       {riskDescription && <div style={{ marginTop: "5px", fontWeight: "bold" }}>{riskDescription}</div>}
+      <GradientArea averageScore={averageScore} />
     </div>
   );
 };
