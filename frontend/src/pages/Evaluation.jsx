@@ -26,9 +26,9 @@ function Evaluation() {
             <div className="container mt-4">
                 <div className="row">
                     <div className="col-md-6 mb-3">
-                        <FlexContainer>
+                        <div>
                             <RadarChart />
-                        </FlexContainer>
+                        </div>
                     </div>
                     <div className="col-md-6">
                         <div className="mb-3">
