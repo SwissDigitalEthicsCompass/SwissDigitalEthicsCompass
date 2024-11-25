@@ -12,7 +12,7 @@ function SurveyCard({ survey }) {
     };
 
     return (
-        <div className="card">
+        <div className="card m-2" style={{ width: '18rem' }}>
             <img src={imageSrc} alt={survey.name} className="image" />
             <div className="content">
                 <h3>{survey.name}</h3>
