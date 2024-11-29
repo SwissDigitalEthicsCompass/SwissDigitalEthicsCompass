@@ -1,0 +1,29 @@
+networks:
+  net:
+    driver: bridge
+services:
+  chromadb:
+    image: chromadb/chroma:latest
+    volumes:
+      - ./chromadb:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma # this is the default path, change it as needed
+      - ANONYMIZED_TELEMETRY=FALSE
+      - ALLOW_RESET=TRUE
+    ports:
+      - 8000:8000
+    networks:
+      - net
+
+  redis-stack:
+    image: redis/redis-stack:latest
+#    container_name: redis-stack
+    environment:
+      - REDIS_ARGS=--requirepass mypassword
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    volumes:
+      - ./redis_data:/data
+    restart: always
