@@ -20,6 +20,8 @@ venv/
 .venv/
 __pycache__/
 
+backend/data_RAG/*
+backend/extracted_images_pdf/*
 
 node_modules
 dist
