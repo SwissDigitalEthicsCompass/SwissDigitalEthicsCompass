@@ -9,8 +9,8 @@ import os
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 # Define the directory where PDF files are stored
-pdf_dir = "data_RAG"
-output_dir = "extracted_images_pdf"
+pdf_dir = "backend/data_RAG"
+output_dir = "backend/extracted_images_pdf"
 
 #from langchain import hub
 #from langchain_community.vectorstores import SKLearnVectorStore
@@ -30,15 +30,14 @@ from langchain_core.prompts import ChatPromptTemplate
 import json
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain.schema.output_parser import StrOutputParser
-import chromadb
-chromadb.api.client.SharedSystemClient.clear_system_cache()
+from chromadb import HttpClient
 from chromadb.config import DEFAULT_TENANT, DEFAULT_DATABASE, Settings
 from langchain_community.storage import RedisStore
 from langchain_community.utilities.redis import get_client
 
 
-client = chromadb.HttpClient(
 
+client = HttpClient(
     host="localhost",
     port=8000,
     ssl=False,
@@ -50,16 +49,18 @@ client = chromadb.HttpClient(
 
 
 #client.reset()  # resets the database
-collection = client.get_or_create_collection("test_my_rag")
+collection_name = "test_my_rag"  # Use collection name as a string
+collection = client.get_or_create_collection(collection_name)
 
+# Initialize the Chroma vector store
 vectorstore = Chroma(
     client=client,
-    collection_name=collection,
-#    documents=metafiltered_docs,
+    collection_name=collection_name,  # Pass the collection name as a string
     embedding_function=NomicEmbeddings(model="nomic-embed-text-v1.5", inference_mode="local"),
     persist_directory="./chroma_langchain_rag_db_test",  # Optional: directory to store the Chroma database
     client_settings=Settings(anonymized_telemetry=False, allow_reset=True),
 )
+
 
 # The storage layer for the parent documents
 # Initialize the storage layer - to store raw images, text and tables
