@@ -9,8 +9,8 @@ import os
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 # Define the directory where PDF files are stored
-pdf_dir = "backend/data_RAG"
-output_dir = "backend/extracted_images_pdf"
+pdf_dir = "data_RAG"
+output_dir = "extracted_images_pdf"
 
 #from langchain import hub
 #from langchain_community.vectorstores import SKLearnVectorStore
@@ -99,30 +99,24 @@ for element in docs:
 
 # Add to vectorDB
 
-client = chromadb.PersistentClient(
-        path="backend/chroma",
-        settings=Settings(allow_reset=True),
-        tenant=DEFAULT_TENANT,
-        database=DEFAULT_DATABASE,
-        )
-"""
+
 client = chromadb.HttpClient(
     host="localhost",
     port=8000,
-    ssl=False,
-    headers=None,
+#    ssl=False,
+#    headers=None,
     settings=Settings(allow_reset=True),
-    tenant=DEFAULT_TENANT,
-    database=DEFAULT_DATABASE,
+#    tenant=DEFAULT_TENANT,
+#    database=DEFAULT_DATABASE,
 )
-"""
+
 
 client.reset()  # resets the database
 collection = client.get_or_create_collection("test_my_rag")
 
 vectorstore = Chroma(
     client=client,
-    collection_name="test_my_rag",
+    collection_name=collection,
 #    documents=metafiltered_docs,
     embedding_function=NomicEmbeddings(model="nomic-embed-text-v1.5", inference_mode="local"),
     persist_directory="backend/chroma_langchain_rag_db_test",  # Optional: directory to store the Chroma database
