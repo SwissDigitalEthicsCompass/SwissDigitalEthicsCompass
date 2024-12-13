@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .functions import multimodal_rag_qa
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -70,3 +71,33 @@ class UserResponseDetailView(generics.RetrieveDestroyAPIView):
         user_response = self.get_object()
         user_response.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+class ChatAPIView(APIView):
+    """
+    API view to handle chat messages. Requires authentication.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user_input = request.data.get('input', '').strip()
+
+        if not user_input:
+            return Response(
+                {"error": "Input cannot be empty."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            print("ready to sue multimodal RAG")
+            response = multimodal_rag_qa(user_input)
+            print("print response:  ", response)
+
+            ai_response = response['answer']
+
+            return Response({"user": user_input, "ai": ai_response}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

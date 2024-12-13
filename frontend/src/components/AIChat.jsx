@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import "../styles/AIChat.css"
+import api from '../api';
 
-const ChatComponent = () => {
+
+const AIChat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
@@ -9,7 +11,7 @@ const ChatComponent = () => {
     setInput(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!input.trim()) return; // Prevents sending empty messages
 
@@ -19,13 +21,27 @@ const ChatComponent = () => {
       sender: 'user'
     };
 
-    const aiResponse = {
-      id: messages.length + 2,
-      text: `AI: "${input}"`,
-      sender: 'ai'
-    };
+    try {
+      const response = await api.post("api/chat/", {
+        input: input, // Pass the form data here
+      });
 
-    setMessages([...messages, newMessage, aiResponse]);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        const aiResponse = {
+          id: messages.length + 2,
+          text: `AI: "${data.ai}"`,
+          sender: 'ai'
+        };
+        setMessages([...messages, newMessage, aiResponse]);
+      } else {
+        console.error('Error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
     setInput(''); // Clear input after sending
   };
 
@@ -59,4 +75,4 @@ const ChatComponent = () => {
   );
 };
 
-export default ChatComponent;
+export default AIChat;

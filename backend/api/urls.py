@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (SurveyListView, SurveyDetailView, QuestionListView,
-                    QuestionRetrieveView, UserResponseCreateView, UserResponseViewSet, UserResponseDetailView)
+                    QuestionRetrieveView, UserResponseCreateView, UserResponseViewSet, UserResponseDetailView, ChatAPIView)
 
 urlpatterns = [
     path('surveys/', SurveyListView.as_view(), name='survey-list'),
@@ -11,4 +11,5 @@ urlpatterns = [
     path('user-responses/', UserResponseViewSet.as_view({'get': 'list'}), name='user-response-list'),
     path('user-responses/<int:pk>/', UserResponseViewSet.as_view({'get': 'retrieve'}), name='user-response-detail'),
     path('user-responses/<int:pk>/delete/', UserResponseDetailView.as_view(), name='user-response-detail-delete'),
+    path('chat/', ChatAPIView.as_view(), name='chat-api')
 ]
