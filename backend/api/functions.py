@@ -240,6 +240,20 @@ chain = (
     | llm
     | StrOutputParser()
 )
+"""
+Explain each layer in the theoretical framework and show the corresponding figure as image
+
+Can you explain in details the steps, that used in the customozed Delphi method
+
+How many questions in survey results got consensus and how many got dissensus? # Cannot answer
+
+How many answers in survey results got consensus? #Wrong or not correct answer
+
+Summary the article selection process and give exact number of articles found in each library using PRISMA framework. Show table!
+
+What is the difference in the number of articles categorized under “Service” between IEEEXplore and ACM? 
+"""
+
 
 def multimodal_rag_qa(query):
     # Invoke the model with the input query

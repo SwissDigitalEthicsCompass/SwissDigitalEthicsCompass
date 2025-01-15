@@ -6,7 +6,8 @@
   }
   
   .messages-container {
-    min-height: 100px;
+    min-height: 150px;
+    height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
     margin-bottom: 10px;

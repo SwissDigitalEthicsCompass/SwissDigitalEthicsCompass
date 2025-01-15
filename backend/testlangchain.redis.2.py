@@ -144,12 +144,6 @@ def split_image_text_types(docs):
     return {"images": b64_images, "texts": texts}
 
 
-# Check retrieval
-query = "Explain each layer in the theoretical framework and show the corresponding figure as image"
-docs = retriever.invoke(query, limit=5)
-docstores_docs = retriever.vectorstore.similarity_search(query)
-
-
 from operator import itemgetter
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain_core.messages import HumanMessage
@@ -246,8 +240,6 @@ chain = (
     | llm
     | StrOutputParser()
 )
-
-
 
 def multimodal_rag_qa(query):
     # Invoke the model with the input query

@@ -91,11 +91,14 @@ class ChatAPIView(APIView):
         try:
             print("ready to sue multimodal RAG")
             response = multimodal_rag_qa(user_input)
-            print("print response:  ", response)
+            print("print response answer text:  ", response['answer'])
 
             ai_response = response['answer']
-
+            if response['img_sources']:
+                ai_image = response['img_sources']
+                return Response({"user": user_input, "ai": ai_response, "image": ai_image}, status=status.HTTP_200_OK)
             return Response({"user": user_input, "ai": ai_response}, status=status.HTTP_200_OK)
+    
         except Exception as e:
             return Response(
                 {"error": str(e)},
