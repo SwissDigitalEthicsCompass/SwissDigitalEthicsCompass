@@ -83,13 +83,25 @@ const RadarChart = () => {
   };
 
   const options = {
+    responsive: true, // Ensures the chart adjusts to the container size
+    maintainAspectRatio: true, // Allows custom width and height
     scales: {
       r: {
         angleLines: {
           display: false
         },
         suggestedMin: 0,
-        suggestedMax: 1
+        suggestedMax: 1,
+        pointLabels: {
+          font: {
+            size: 20 // Set font size for axis labels
+          }
+        },
+        ticks: {
+          font: {
+            size: 20 // Set font size for axis values
+          }
+        }
       }
     },
     elements: {
@@ -99,9 +111,20 @@ const RadarChart = () => {
     },
     plugins: {
       legend: {
-        position: 'top'
+        position: 'top',
+        labels: {
+          font: {
+            size: 24 // Set font size for legend
+          }
+        }
       },
       tooltip: {
+        titleFont: {
+          size: 20 // Set font size for tooltip title
+        },
+        bodyFont: {
+          size: 18 // Set font size for tooltip content
+        },
         callbacks: {
           label: function(context) {
             return `${context.label}: ${riskCategories[context.dataIndex]} (${context.raw.toFixed(2)})`;
@@ -114,13 +137,22 @@ const RadarChart = () => {
   return (
   <div>
 
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <div>
         <div>
-            <h4 style={{ marginBottom: "50px" }}>Assessment of digital ethics concerns</h4>
+        <h3 style={{
+            marginBottom: "30px", 
+            textAlign: "center", 
+            display: "flex", 
+            justifyContent: "center", 
+            alignItems: "center", 
+            height: "100%" /* Ensure it takes full height if needed */
+          }}>Assessment of digital ethics concerns
+        </h3>
             <Radar data={chartData} options={options} />
         </div>
-
-        <GradientArea averageScore={averageScore} />
+        <div>
+          <GradientArea averageScore={averageScore} />
+        </div>
     </div>
 
   </div>

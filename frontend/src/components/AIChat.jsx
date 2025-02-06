@@ -67,7 +67,7 @@ const AIChat = () => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h4>Ask the AI</h4>
+      <h5>Ask the AI</h5>
       <div className="chat-container">
         <div className="messages-container">
           {messages.map((message) => (

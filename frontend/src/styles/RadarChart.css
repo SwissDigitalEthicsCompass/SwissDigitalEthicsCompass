@@ -1,6 +1,23 @@
+.chart-container {
+  width: 800px;  /* Adjust the chart size */
+  height: 800px; /* Adjust the chart size */
+  margin: auto;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+
 .gradient-bar {
-    height: auto;
-    max-width: 100%;
-    background-image: linear-gradient(to right, green 20%,lightblue 20% 40%, yellow 40% 60%, orange 60% 80%, red 80%);
-  }
+  height: 20px; /* Adjusted height to make it horizontal */
+  width: 100%; /* Adjusted width to take full available width */
+  background-image: linear-gradient(to right, 
+    green 20%, 
+    lightblue 20% 40%, 
+    yellow 40% 60%, 
+    orange 60% 80%, 
+    red 85%);
+}
   

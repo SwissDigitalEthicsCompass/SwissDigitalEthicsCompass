@@ -3,19 +3,19 @@ import styled from 'styled-components';
 
 const GradientWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 400px;
-  width: 40px;
-  background: linear-gradient(to top, #4CAF50, #8BC34A, #FFC107, #FF5722, #D32F2F);
+  height: 30px; /* Adjusted height */
+  width: 100%; /* Adjusted width */
+  background: linear-gradient(to right, #4CAF50, #8BC34A, #FFC107, #FF5722, #D32F2F);
   position: relative;
   margin-left: 20px;
 `;
 
 const Label = styled.div`
   position: absolute;
-  width: 100%;
+  height: 100%;
   text-align: center;
   color: #000;
   font-weight: bold;
@@ -25,12 +25,12 @@ const Label = styled.div`
 
 const Pointer = styled.div`
   position: absolute;
-  left: -20px;
+  top: -10px; /* Adjusted position */
   width: 0;
   height: 0;
-  border-right: 10px solid #000;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
+  border-top: 10px solid #000;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
 `;
 
 const Tooltip = styled.div`
@@ -50,7 +50,7 @@ const GradientArea = ({ averageScore }) => {
   const [hoverIndex, setHoverIndex] = useState(null);
   const [tooltipContent, setTooltipContent] = useState('');
 
-  const labels = ['Very High', 'High', 'Medium', 'Low', 'Very Low'];
+  const labels = ['Very Low', 'Low', 'Medium', 'High', 'Very High'];
 
   const riskDescriptions = {
     'Very Low': 'Very Low risk indicates very minimal ethical concerns and impacts. Suitable for most contexts without significant adjustments.',
@@ -76,7 +76,7 @@ const GradientArea = ({ averageScore }) => {
         <React.Fragment key={index}>
           <Label
             style={{
-              top: `${index * 22}%`
+              left: `${index * 20}%`, /* Adjusted position for horizontal alignment */
             }}
             alwaysVisible={label === 'Very Low' || label === 'Very High'}
             isHovered={hoverIndex === index}
@@ -87,20 +87,23 @@ const GradientArea = ({ averageScore }) => {
           </Label>
           {hoverIndex === index && (
             <Pointer
-              style={{ top: `${index * 22}%`, transform: `translateY(-50%) rotate(180deg)` }}
+              style={{
+                left: `${index * 20}%`,
+                transform: `translateX(-50%) rotate(0deg)`, /* Adjusted for horizontal pointer */
+              }}
             />
           )}
         </React.Fragment>
       ))}
       {tooltipContent && (
-        <Tooltip style={{ top: `${hoverIndex * 22}%`, transform: 'translateY(-50%)', left: '50px' }}>
+        <Tooltip style={{ left: `${hoverIndex * 20}%`, transform: 'translateX(-50%)', top: '30px' }}>
           {tooltipContent}
         </Tooltip>
       )}
       <Pointer
         style={{
-          top: `${(1 - averageScore) * 100}%`,
-          transform: `translateY(-50%) rotate(180deg)`
+          left: `${averageScore * 100}%`, /* Adjusted position for horizontal pointer */
+          transform: `translateX(-50%) rotate(0deg)`,
         }}
       />
     </GradientWrapper>

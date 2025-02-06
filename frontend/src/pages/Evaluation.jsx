@@ -4,12 +4,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import RadarChart from '../components/RadarChart';
 import RecommendationList from '../components/RecommendationList';
 import AIChat from '../components/AIChat';
-import styled from 'styled-components';
-
-const FlexContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-`;
 
 function Evaluation() {
     const { evaluationId } = useParams(); // Extract evaluationId from the URL
@@ -23,9 +17,9 @@ function Evaluation() {
         <>
             <Navbar />
             <button className="btn btn-secondary mt-2 ml-2" onClick={handleGoBack}>Go Back</button>
-            <div className="container mt-4">
+            <div className="container">
                 <div className="row">
-                    <div className="col-md-6 mb-3">
+                    <div className="col-md-6 mb-1">
                         <div>
                             <RadarChart />
                         </div>
@@ -36,7 +30,7 @@ function Evaluation() {
                                 <RecommendationList /> {/* Display the recommendation list here */}
                             </div>
                         </div>
-                        <div>
+                        <div  className="mb-3">
                             <div>
                                 <AIChat />
                             </div>

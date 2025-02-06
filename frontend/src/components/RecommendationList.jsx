@@ -22,7 +22,6 @@ const RecommendationList = () => {
   const [selectedRecommendations, setSelectedRecommendations] = useState([]);
 
   useEffect(() => {
-    // Randomly select 5 unique suggestions to display
     const shuffled = suggestions.sort(() => 0.5 - Math.random());
     setSelectedRecommendations(shuffled.slice(0, 5));
   }, []);
@@ -32,7 +31,7 @@ const RecommendationList = () => {
       <h4>Recommendations for Enhancing Digital Ethics</h4>
       <ul>
         {selectedRecommendations.map((recommendation, index) => (
-          <li key={index} style={{ marginBottom: '10px' }}>
+          <li key={index} style={{ marginBottom: '5px', fontSize: '18px' }}>
             {recommendation}
           </li>
         ))}

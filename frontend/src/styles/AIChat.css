@@ -1,12 +1,12 @@
 .chat-container {
-    padding: 20px;
+    padding: 1px;
     max-width: auto;
     max-height: 200px;
     margin: auto;
   }
   
   .messages-container {
-    min-height: 150px;
+    min-height: 120px;
     height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
